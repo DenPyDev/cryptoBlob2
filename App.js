@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {ethers} from "ethers";
+import Select from 'react-select';
 import "./App.css";
 import {Button, Card} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,7 +17,8 @@ function decimalToHexString(number) {
 const _PROVIDER = new ethers.providers.Web3Provider(window.ethereum, "any");
 const _USDC = {
     address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    abi:  [{'inputs': [], 'stateMutability': 'nonpayable', 'type': 'constructor'}, {'inputs': [{'internalType': 'address', 'name': '', 'type': 'address'}, {'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'INHERIT_TICKETS', 'outputs': [{'internalType': 'address', 'name': 'sender', 'type': 'address'}, {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'bytes32', 'name': 'newPetName', 'type': 'bytes32'}, {'internalType': 'uint256', 'name': 'timestamp', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': '', 'type': 'address'}, {'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'OWNER_PET_LIST', 'outputs': [{'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': '', 'type': 'address'}, {'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}], 'name': 'OWNER_PET_MAP', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}, {'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'PET_GENES_MAP', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'petOwner', 'type': 'address'}, {'internalType': 'string', 'name': 'sPetName', 'type': 'string'}, {'internalType': 'string', 'name': 'sNewPetName', 'type': 'string'}], 'name': 'PUBInheritCreateTicket', 'outputs': [], 'stateMutability': 'payable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'ticket_index', 'type': 'uint256'}], 'name': 'PUBacceptMyTicket', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBarise', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBcheckAmIPetOwner', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [], 'name': 'PUBcheckMyTickets', 'outputs': [{'components': [{'internalType': 'address', 'name': 'sender', 'type': 'address'}, {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'bytes32', 'name': 'newPetName', 'type': 'bytes32'}, {'internalType': 'uint256', 'name': 'timestamp', 'type': 'uint256'}], 'internalType': 'struct cryptoBlob4.Claim[]', 'name': '', 'type': 'tuple[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBcheckPetNameExists', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet', 'type': 'address'}], 'name': 'PUBgetOwnerPetList', 'outputs': [{'internalType': 'string[]', 'name': '', 'type': 'string[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBgetPetGenesStr', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet_to', 'type': 'address'}, {'internalType': 'string', 'name': 'sPetName', 'type': 'string'}, {'internalType': 'string', 'name': 'sNewPetName', 'type': 'string'}], 'name': 'PUBinherit', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'ticket_index', 'type': 'uint256'}], 'name': 'PUBrejectMyTicket', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [], 'name': 'SEED', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'arise', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet', 'type': 'address'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'containsOwnerPet', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'uint256[]', 'name': 'genes', 'type': 'uint256[]'}], 'name': 'deviateGenes', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'uint8', 'name': 'lenght', 'type': 'uint8'}], 'name': 'generateGenes', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'getPetGenes', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet_to', 'type': 'address'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'bytes32', 'name': 'newPetName', 'type': 'bytes32'}], 'name': 'inherit', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'from', 'type': 'uint256'}, {'internalType': 'uint256', 'name': 'to', 'type': 'uint256'}, {'internalType': 'uint256', 'name': 'seed', 'type': 'uint256'}], 'name': 'randInt', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'text', 'type': 'string'}], 'name': 'readStr', 'outputs': [{'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}], 'stateMutability': 'pure', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet', 'type': 'address'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'setOwnerPet', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'uint256[]', 'name': 'genes', 'type': 'uint256[]'}], 'name': 'setPetGenes', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'n', 'type': 'uint256'}], 'name': 'updateSeed', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}]
+    abi:  [{'inputs': [], 'stateMutability': 'nonpayable', 'type': 'constructor'}, {'inputs': [{'internalType': 'address', 'name': '', 'type': 'address'}, {'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'INHERIT_TICKETS', 'outputs': [{'internalType': 'address', 'name': 'sender', 'type': 'address'}, {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'bytes32', 'name': 'newPetName', 'type': 'bytes32'}, {'internalType': 'uint256', 'name': 'timestamp', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'OWNERS_LIST', 'outputs': [{'internalType': 'address', 'name': '', 'type': 'address'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': '', 'type': 'address'}, {'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'OWNER_PET_LIST', 'outputs': [{'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': '', 'type': 'address'}, {'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}], 'name': 'OWNER_PET_MAP', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}, {'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'name': 'PET_GENES_MAP', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'petOwner', 'type': 'address'}, {'internalType': 'string', 'name': 'sPetName', 'type': 'string'}, {'internalType': 'string', 'name': 'sNewPetName', 'type': 'string'}], 'name': 'PUBInheritCreateTicket', 'outputs': [], 'stateMutability': 'payable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'ticket_index', 'type': 'uint256'}], 'name': 'PUBacceptMyTicket', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBarise', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBcheckAmIPetOwner', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [], 'name': 'PUBcheckMyTickets', 'outputs': [{'components': [{'internalType': 'address', 'name': 'sender', 'type': 'address'}, {'internalType': 'uint256', 'name': 'value', 'type': 'uint256'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'bytes32', 'name': 'newPetName', 'type': 'bytes32'}, {'internalType': 'uint256', 'name': 'timestamp', 'type': 'uint256'}], 'internalType': 'struct cryptoBlob4.Claim[]', 'name': '', 'type': 'tuple[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBcheckPetNameExists', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet', 'type': 'address'}], 'name': 'PUBgetOwnerPetList', 'outputs': [{'internalType': 'string[]', 'name': '', 'type': 'string[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [], 'name': 'PUBgetOwners', 'outputs': [{'internalType': 'address[]', 'name': '', 'type': 'address[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'sPetName', 'type': 'string'}], 'name': 'PUBgetPetGenesStr', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet_to', 'type': 'address'}, {'internalType': 'string', 'name': 'sPetName', 'type': 'string'}, {'internalType': 'string', 'name': 'sNewPetName', 'type': 'string'}], 'name': 'PUBinherit', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'ticket_index', 'type': 'uint256'}], 'name': 'PUBrejectMyTicket', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [], 'name': 'SEED', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'arise', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet', 'type': 'address'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'containsOwnerPet', 'outputs': [{'internalType': 'bool', 'name': '', 'type': 'bool'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'uint256[]', 'name': 'genes', 'type': 'uint256[]'}], 'name': 'deviateGenes', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'uint8', 'name': 'lenght', 'type': 'uint8'}], 'name': 'generateGenes', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'getPetGenes', 'outputs': [{'internalType': 'uint256[]', 'name': '', 'type': 'uint256[]'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet_to', 'type': 'address'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'bytes32', 'name': 'newPetName', 'type': 'bytes32'}], 'name': 'inherit', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'from', 'type': 'uint256'}, {'internalType': 'uint256', 'name': 'to', 'type': 'uint256'}, {'internalType': 'uint256', 'name': 'seed', 'type': 'uint256'}], 'name': 'randInt', 'outputs': [{'internalType': 'uint256', 'name': '', 'type': 'uint256'}], 'stateMutability': 'view', 'type': 'function'}, {'inputs': [{'internalType': 'string', 'name': 'text', 'type': 'string'}], 'name': 'readStr', 'outputs': [{'internalType': 'bytes32', 'name': '', 'type': 'bytes32'}], 'stateMutability': 'pure', 'type': 'function'}, {'inputs': [{'internalType': 'address', 'name': 'wallet', 'type': 'address'}, {'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}], 'name': 'setOwnerPet', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'bytes32', 'name': 'petName', 'type': 'bytes32'}, {'internalType': 'uint256[]', 'name': 'genes', 'type': 'uint256[]'}], 'name': 'setPetGenes', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}, {'inputs': [{'internalType': 'uint256', 'name': 'n', 'type': 'uint256'}], 'name': 'updateSeed', 'outputs': [], 'stateMutability': 'nonpayable', 'type': 'function'}]
+
     ,
 };
 const _SIGNER = _PROVIDER.getSigner();
@@ -40,6 +42,9 @@ function App() {
 
     let [textAccept_ticket, setTextAccept_ticket] = useState('.......');
     let [textReject_ticket, setTextReject_ticket] = useState('.......');
+
+    let [textPetOwners, setTextPetOwners] = useState('.......');
+
 
 
 
@@ -97,16 +102,14 @@ function App() {
                 let petname = document.getElementById("pet-name-input").value
 
                 let tx2;
-                try{
-                    tx2 = await CONTRACT.PUBcheckPetNameExists(petname);}
-
-                catch {
+                try {
+                    tx2 = await CONTRACT.PUBcheckPetNameExists(petname);
+                } catch {
 
                     tx2 = false;
                 }
 
-                if( !tx2)
-                {
+                if (!tx2) {
                     const tx = await CONTRACT.PUBarise(petname, {gasPrice: 20e9});
                     console.log(`Transaction hash: ${tx.hash}`);
 
@@ -115,9 +118,8 @@ function App() {
                     console.log(`Gas used: ${receipt.gasUsed.toString()}`);
                     setTextPetArise(textPetArise = `Tx: ${tx.hash}`);
 
-                }
-                else {
-                    if(! tx2){
+                } else {
+                    if (!tx2) {
                         setTextPetArise(textPetArise = `Error name not valid`);
                         console.log(`Error name not valid`);
                     }
@@ -164,7 +166,6 @@ function App() {
     };
 
 
-
     const btn_inherit_create_ticket = async () => {
         if (window.ethereum) {
             try {
@@ -174,7 +175,29 @@ function App() {
                 let child_petname = document.getElementById("pet-inh-cr-ticket-input-child-name").value
                 let create_ticket_val = document.getElementById("pet-inh-cr-ticket-val").value
 
-                const tx = await CONTRACT.PUBInheritCreateTicket(pet_owner, parent_petname, child_petname, {gasPrice: 20e9, value: parseInt(create_ticket_val)*10**9});
+                let petValSelector = document.getElementById("pet-val-selector").textContent
+
+                let mult = '';
+
+                switch (petValSelector) {
+                    case 'gwei':  // if (x === 'value1')
+                        mult = '000000000';
+                        break;
+
+                    case 'eth':  // if (x === 'value2')
+                        mult = '000000000000000000';
+                        break;
+
+                    default:
+                        mult = '';
+                        break;
+                }
+
+
+                const tx = await CONTRACT.PUBInheritCreateTicket(pet_owner, parent_petname, child_petname, {
+                    gasPrice: 20e9,
+                    value: create_ticket_val + mult
+                });
                 console.log(`Transaction hash: ${tx.hash}`);
                 const receipt = await tx.wait();
                 console.log(`Transaction confirmed in block ${receipt.blockNumber}`);
@@ -208,12 +231,24 @@ function App() {
         }
     };
 
+    const btn_get_owners = async () => {
+        if (window.ethereum) {
+            const tx = await CONTRACT.PUBgetOwners();
+            console.log(`owners: ${tx}`);
+            setTextPetOwners(textPetOwners = `Owners: ${tx.join(", ")}`);
+        } else {
+            alert("install metamask extension!!");
+        }
+    };
+
+
+
+
     const btn_get_tickets = async () => {
         if (window.ethereum) {
             let tx = await CONTRACT.PUBcheckMyTickets();
 
             let array = tx.toString().split(',')
-
 
 
             let print = '';
@@ -222,24 +257,24 @@ function App() {
             for (let i = 0; i < array.length; i += chunkSize) {
                 const chunk = array.slice(i, i + chunkSize);
                 let [sender, value, petName, newPetName, timestamp] = chunk
-                petName =  ethers.utils.parseBytes32String(petName) ;
+                petName = ethers.utils.parseBytes32String(petName);
                 newPetName = ethers.utils.parseBytes32String(newPetName);
 
 
-                let date = new Date(timestamp*1000);
+                let date = new Date(timestamp * 1000);
 
-                let str_date = date.getDate()+
-                    "/"+(date.getMonth()+1)+
-                    "/"+date.getFullYear()+
-                    " "+date.getHours()+
-                    ":"+date.getMinutes()+
-                    ":"+date.getSeconds();
+                let str_date = date.getDate() +
+                    "/" + (date.getMonth() + 1) +
+                    "/" + date.getFullYear() +
+                    " " + date.getHours() +
+                    ":" + date.getMinutes() +
+                    ":" + date.getSeconds();
 
 
-                console.log(sender, parseInt(value),  petName, newPetName, str_date);
+                console.log(sender, parseInt(value), petName, newPetName, str_date);
 
-                print += sender + '\n' + value  + '\n' + petName+ '\n' + newPetName+ '\n' + str_date
-                print +='\n\n'
+                print += sender + '\n' + value + '\n' + petName + '\n' + newPetName + '\n' + str_date
+                print += '\n\n'
             }
 
             console.log(`Transaction qqq: ${array}`);
@@ -277,7 +312,6 @@ function App() {
             alert("install metamask extension!!");
         }
     };
-
 
 
     const btn_accept_ticket = async () => {
@@ -330,7 +364,6 @@ function App() {
     };
 
 
-
     const getbalance = (address) => {
         window.ethereum
             .request({
@@ -352,6 +385,13 @@ function App() {
         getbalance(account);
     };
 
+    const deviders = [
+        {label: "wei", value: ""},
+        {label: "gwei", value: (10 ** 9).toString()},
+        {label: "eth", value: (10 ** 18).toString()},
+    ];
+
+
     return (
         <div className="App">
             <section id="hero">
@@ -359,16 +399,19 @@ function App() {
                     <div className="row justify-content-md-center col-lg-12 pt-5">
                         <div
                             className="col-lg-6 pt-lg-1 order-2 order-lg-1 d-flex flex-column justify-content-center aos-init aos-animate"
-                            data-aos="fade-up" >
+                            data-aos="fade-up">
                             <div>
-                                <Card className="text-center" >
+                                <Card className="text-center">
                                     <Card.Body>
                                         <div className=" p-0">
                                             <div className="input-group">
-                                                <Button onClick={btn_wallet_connect} variant="primary" style={{fontSize:'0.8rem'}}>Connect</Button>
-                                                <text className="form-control" style={{fontSize:'0.8rem'}}>Balance: {data.Balance}</text>
+                                                <Button onClick={btn_wallet_connect} variant="primary"
+                                                        style={{fontSize: '0.8rem'}}>Connect</Button>
+                                                <text className="form-control"
+                                                      style={{fontSize: '0.8rem'}}>Balance: {data.Balance}</text>
                                             </div>
-                                            <text className="form-control" style={{fontSize:'0.8rem'}} >Address: {data.Address}</text>
+                                            <text className="form-control"
+                                                  style={{fontSize: '0.8rem'}}>Address: {data.Address}</text>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -377,10 +420,15 @@ function App() {
                                     <Card.Body>
                                         <div className=" p-0">
                                             <div className="input-group">
-                                                <Button onClick={btn_arise} variant="primary" style={{backgroundColor: 'orange' ,fontSize:'0.8rem'}} > Arise Pet </Button>
-                                                <input type="text" className="form-control input-sm" id="pet-name-input" name="title" placeholder='Pet name' style={{fontSize:'0.8rem'}}/>
+                                                <Button onClick={btn_arise} variant="primary"
+                                                        style={{backgroundColor: 'orange', fontSize: '0.8rem'}}> Arise
+                                                    Pet </Button>
+                                                <input type="text" className="form-control input-sm" id="pet-name-input"
+                                                       name="title" placeholder='Pet name'
+                                                       style={{fontSize: '0.8rem'}}/>
                                             </div>
-                                            <p className="form-control" style={{fontSize:'0.8rem'}}> {textPetArise} </p>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textPetArise} </p>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -389,12 +437,20 @@ function App() {
                                     <Card.Body>
                                         <div className=" p-0">
                                             <div className="input-group">
-                                                <Button onClick={btn_inherit} variant="primary" style={{backgroundColor: 'orange' ,fontSize:'0.8rem'}}> Inherit Pet </Button>
-                                                <input type="text" className="form-control input-sm" id="pet-inh-input-parent-name" placeholder='parent' style={{fontSize:'0.8rem'}}/>
-                                                <input type="text" className="form-control input-sm" id="pet-inh-input-child-name" placeholder='child' style={{fontSize:'0.8rem'}} />
+                                                <Button onClick={btn_inherit} variant="primary"
+                                                        style={{backgroundColor: 'orange', fontSize: '0.8rem'}}> Inherit
+                                                    Pet </Button>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-inh-input-parent-name" placeholder='parent'
+                                                       style={{fontSize: '0.8rem'}}/>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-inh-input-child-name" placeholder='child'
+                                                       style={{fontSize: '0.8rem'}}/>
                                             </div>
-                                            <input type="text" className="form-control" id="pet-inh-input-to" placeholder='to' style={{fontSize:'0.8rem'}}></input>
-                                            <p className="form-control"  style={{fontSize:'0.8rem'}}> {textPetInherit} </p>
+                                            <input type="text" className="form-control" id="pet-inh-input-to"
+                                                   placeholder='to' style={{fontSize: '0.8rem'}}></input>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textPetInherit} </p>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -403,53 +459,25 @@ function App() {
                                     <Card.Body>
                                         <div className=" p-0">
                                             <div className="input-group">
-                                                <Button onClick={btn_inherit_create_ticket} variant="primary" style={{backgroundColor: 'red' ,fontSize:'0.8rem'}}> Inherit Pet Ticket </Button>
-                                                <input type="text" className="form-control input-sm" id="pet-inh-cr-ticket-input-parent-name" placeholder='parent' style={{fontSize:'0.8rem'}}/>
-                                                <input type="text" className="form-control input-sm" id="pet-inh-cr-ticket-input-child-name" placeholder='child' style={{fontSize:'0.8rem'}} />
-                                                <input type="text" className="form-control input-sm" id="pet-inh-cr-ticket-val" placeholder='Gwei' style={{fontSize:'0.8rem'}} />
+                                                <Button onClick={btn_inherit_create_ticket} variant="primary"
+                                                        style={{backgroundColor: 'red', fontSize: '0.8rem'}}> Inherit
+                                                    Pet Ticket </Button>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-inh-cr-ticket-input-parent-name" placeholder='parent'
+                                                       style={{fontSize: '0.8rem'}}/>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-inh-cr-ticket-input-child-name" placeholder='child'
+                                                       style={{fontSize: '0.8rem'}}/>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-inh-cr-ticket-val" placeholder='Val'
+                                                       style={{fontSize: '0.8rem'}}/>
+                                                <Select options={deviders} id="pet-val-selector" className="qqqqq"
+                                                        defaultValue={{label: "wei", value: ""}}/>
                                             </div>
-                                            <input type="text" className="form-control" id="pet-inh-cr-ticket-input-to" placeholder='Pet owner' style={{fontSize:'0.8rem'}}></input>
-                                            <p className="form-control"  style={{fontSize:'0.8rem'}}> {textPetInheritCrTicket} </p>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-
-
-                                <Card className="text-center">
-                                    <Card.Body>
-                                        <div className=" p-0">
-                                            <div className="input-group">
-                                                <Button onClick={btn_is_pet_valid} variant="primary" style={{fontSize:'0.8rem'}}>Check Pet </Button>
-                                                <input type="text" className="form-control input-sm" id="check-pet-name-input" name="title" placeholder='Pet name' style={{fontSize:'0.8rem'}}/>
-                                            </div>
-                                            <div className="input-group">
-                                                <p className="form-control input-sm" id="pet-name-input" style={{fontSize:'0.8rem'}}>{textPet1}</p>
-                                                <p className="form-control input-sm" id="pet-name-input" style={{fontSize:'0.8rem'}}>{textPet2}</p>
-                                                <p className="form-control input-sm" id="pet-name-input" style={{fontSize:'0.8rem'}}>{textPet3}</p>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-
-                                <Card className="text-center">
-                                    <Card.Body>
-                                        <div className=" p-0">
-                                            <div className="input-group">
-                                                <Button onClick={btn_get_genes} variant="primary" style={{fontSize:'0.8rem'}}> Get genes Pet </Button>
-                                                <input type="text" className="form-control input-sm" id="gen-pet-name-input" name="title" placeholder='Pet name' style={{fontSize:'0.8rem'}}/>
-                                            </div>
-                                            <p className="form-control"  style={{fontSize:'0.8rem'}}> {textPetGenes} </p>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-
-                                <Card className="text-center">
-                                    <Card.Body>
-                                        <div className=" p-0">
-                                            <div className="input-group">
-                                                <Button onClick={btn_get_tickets} variant="primary" style={{fontSize:'0.8rem'}}> Get tickets </Button>
-                                           </div>
-                                            <p className="form-control"  style={{fontSize:'0.8rem'}}> {textMyTickets} </p>
+                                            <input type="text" className="form-control" id="pet-inh-cr-ticket-input-to"
+                                                   placeholder='Pet owner' style={{fontSize: '0.8rem'}}></input>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textPetInheritCrTicket} </p>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -459,10 +487,20 @@ function App() {
                                     <Card.Body>
                                         <div className=" p-0">
                                             <div className="input-group">
-                                                <Button onClick={btn_accept_ticket} variant="primary" style={{backgroundColor: 'orange' ,fontSize:'0.8rem'}}> accept ticket </Button>
-                                                <input type="text" className="form-control input-sm" id="pet-input-accept_ticket" name="title" placeholder='index' style={{fontSize:'0.8rem'}}/>
+                                                <Button onClick={btn_is_pet_valid} variant="primary"
+                                                        style={{fontSize: '0.8rem'}}>Check Pet </Button>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="check-pet-name-input" name="title" placeholder='Pet name'
+                                                       style={{fontSize: '0.8rem'}}/>
                                             </div>
-                                            <p className="form-control"  style={{fontSize:'0.8rem'}}> {textAccept_ticket} </p>
+                                            <div className="input-group">
+                                                <p className="form-control input-sm" id="pet-name-input"
+                                                   style={{fontSize: '0.8rem'}}>{textPet1}</p>
+                                                <p className="form-control input-sm" id="pet-name-input"
+                                                   style={{fontSize: '0.8rem'}}>{textPet2}</p>
+                                                <p className="form-control input-sm" id="pet-name-input"
+                                                   style={{fontSize: '0.8rem'}}>{textPet3}</p>
+                                            </div>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -471,10 +509,28 @@ function App() {
                                     <Card.Body>
                                         <div className=" p-0">
                                             <div className="input-group">
-                                                <Button onClick={btn_reject_ticket} variant="primary" style={{backgroundColor: 'orange' ,fontSize:'0.8rem'}}> reject ticket </Button>
-                                                <input type="text" className="form-control input-sm" id="pet-input-reject_ticket" name="title" placeholder='index' style={{fontSize:'0.8rem'}}/>
+                                                <Button onClick={btn_get_genes} variant="primary"
+                                                        style={{fontSize: '0.8rem'}}> Get genes Pet </Button>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="gen-pet-name-input" name="title" placeholder='Pet name'
+                                                       style={{fontSize: '0.8rem'}}/>
                                             </div>
-                                            <p className="form-control"  style={{fontSize:'0.8rem'}}> {textReject_ticket} </p>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textPetGenes} </p>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+
+                                <Card className="text-center">
+                                    <Card.Body>
+                                        <div className=" p-0">
+                                            <div className="input-group">
+                                                <Button onClick={btn_get_owners} variant="primary"
+                                                        style={{fontSize: '0.8rem'}}> Get pet owners</Button>
+                                                </div>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textPetOwners} </p>
                                         </div>
                                     </Card.Body>
                                 </Card>
@@ -482,11 +538,62 @@ function App() {
 
 
 
+
                                 <Card className="text-center">
                                     <Card.Body>
-                                        <Button onClick={btn_sign} variant="primary" style={{fontSize:'0.8rem'}}>btn_sign</Button>
+                                        <div className=" p-0">
+                                            <div className="input-group">
+                                                <Button onClick={btn_get_tickets} variant="primary"
+                                                        style={{fontSize: '0.8rem'}}> Get tickets </Button>
+                                            </div>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textMyTickets} </p>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+
+                                <Card className="text-center">
+                                    <Card.Body>
+                                        <div className=" p-0">
+                                            <div className="input-group">
+                                                <Button onClick={btn_accept_ticket} variant="primary"
+                                                        style={{backgroundColor: 'orange', fontSize: '0.8rem'}}> accept
+                                                    ticket </Button>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-input-accept_ticket" name="title" placeholder='index'
+                                                       style={{fontSize: '0.8rem'}}/>
+                                            </div>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textAccept_ticket} </p>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card className="text-center">
+                                    <Card.Body>
+                                        <div className=" p-0">
+                                            <div className="input-group">
+                                                <Button onClick={btn_reject_ticket} variant="primary"
+                                                        style={{backgroundColor: 'orange', fontSize: '0.8rem'}}> reject
+                                                    ticket </Button>
+                                                <input type="text" className="form-control input-sm"
+                                                       id="pet-input-reject_ticket" name="title" placeholder='index'
+                                                       style={{fontSize: '0.8rem'}}/>
+                                            </div>
+                                            <p className="form-control"
+                                               style={{fontSize: '0.8rem'}}> {textReject_ticket} </p>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+
+
+                                <Card className="text-center">
+                                    <Card.Body>
+                                        <Button onClick={btn_sign} variant="primary"
+                                                style={{fontSize: '0.8rem'}}>btn_sign</Button>
                                         <Button onClick={btn_send_eth} variant="primary"
-                                                style={{backgroundColor: 'red' ,fontSize:'0.8rem'}} > Send
+                                                style={{backgroundColor: 'red', fontSize: '0.8rem'}}> Send
                                             ETH </Button>
                                     </Card.Body>
                                 </Card>
